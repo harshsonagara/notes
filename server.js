@@ -2,14 +2,7 @@ const express = require('express');
 
 const app = express();
 
-/* 
-
-/notes => title & description 
-
-*/
-// Midlleware
-
-app.use(express.json()); // // to have actual data in req.body
+app.use(express.json()); 
 let notes = [];
 app.post('/notes', (req, res) => {
     const { title, description } = req.body;
