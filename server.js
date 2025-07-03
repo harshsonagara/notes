@@ -2,14 +2,39 @@ const express = require('express');
 
 const app = express();
 
-app.use(express.json()); 
+app.use(express.json());
+
 let notes = [];
+
 app.post('/notes', (req, res) => {
-    const { title, description } = req.body;
+
     notes.push(req.body);
     res.json({
-        message:"notes added successfully",
-        notes:notes,
+        message: "notes added successfully",
+    })
+});
+
+app.get('/notes', (req, res) => {
+    res.json({
+        notes:notes
+    })
+})
+
+app.delete('/notes/:index', (req, res) => {
+    const index = req.params.index;
+    delete notes[index];
+    res.json({
+        message:"note delete successfully "
+    })
+
+})
+
+app.patch('/notes/:index', (req, res) => {
+    const index = req.params.index;
+    const { title } = req.body;
+    notes[index].title = title;
+    res.json({
+        message: "title updated successfully"
     })
 })
 
